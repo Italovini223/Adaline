@@ -23,21 +23,15 @@ df_resultados = pd.read_excel(RESULTADOS_PATH)
 colunas_numericas = ['x1', 'x2', 'x3', 'x4', 'd']
 
 for col in colunas_numericas:
-    # 1. Transforma tudo em texto (string)
-    # 2. Troca vírgulas por pontos (para o Python entender os decimais)
-    # 3. Força a conversão para número numérico. 
-    # O "errors='coerce'" transforma qualquer letra intrusa (como aquele "S") em NaN (dado inválido/vazio)
     df_treinamento[col] = df_treinamento[col].astype(str).str.replace(',', '.').apply(pd.to_numeric, errors='coerce')
 
 # Remove qualquer linha inteira que tenha ficado com NaN (exclui a linha com defeito)
 df_treinamento = df_treinamento.dropna()
-# =====================================================================
-# --- FIM DO TRATAMENTO DE DADOS ---
-# =====================================================================
+
 
 treinamento = 1
-taxaDeAprendizagem = 0.01 # Definida cautelosamente para evitar instabilidade 
-precisao = 1e-6 # Precisão requerida (epsilon)
+taxaDeAprendizagem = 0.0025 
+precisao = 1e-6
 
 resultados.limpar(df_resultados)
 

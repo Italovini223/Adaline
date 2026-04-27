@@ -4,29 +4,19 @@ import os
 PATH = os.path.join(os.getcwd(), './datasets/validacao.xlsx')
 
 def validar(pesos, limiarDeAtivacao, treino):
-    """Fase de operação do Adaline para classificar Válvula A ou B."""
-    
-    # Carrega a planilha a cada chamada para garantir dados frescos
+
     df_validacao = pd.read_excel(PATH)
     
-    # =====================================================================
-    # --- INÍCIO DO TRATAMENTO DE DADOS (PROTEÇÃO CONTRA ERROS NO EXCEL) ---
-    # =====================================================================
-    # Como na validação usamos apenas as entradas para calcular a saída,
-    # tratamos as colunas x1, x2, x3 e x4. A coluna 'd' é tratada nas métricas.
+
     colunas_numericas = ['x1', 'x2', 'x3', 'x4']
     
     for col in colunas_numericas:
         if col in df_validacao.columns:
             # Converte para string, troca vírgula por ponto e força para float
             df_validacao[col] = df_validacao[col].astype(str).str.replace(',', '.').apply(pd.to_numeric, errors='coerce')
-    
-    # Preenche valores que ficaram como NaN com 0 (ou pode usar .dropna() se preferir excluir a linha)
-    # Na validação, excluir linha pode bagunçar a ordem, então preencher com 0 é mais seguro para testes acadêmicos
+
     df_validacao[colunas_numericas] = df_validacao[colunas_numericas].fillna(0)
-    # =====================================================================
-    # --- FIM DO TRATAMENTO DE DADOS ---
-    # =====================================================================
+
 
     # Inicializa a coluna de resultados para o treinamento atual
     df_validacao[f'Y_T{treino}'] = pd.NA 
