@@ -15,6 +15,6 @@ Instalação de bibliotecas necessárias no ambiente virtual
  -  pip install -U scikit-learn
 
 Rodar Projeto
-  - python perceptron.py
+  - python adaline.py
 
-grafico de curva de apredizado
+grafico de curva de apredizadoadaline

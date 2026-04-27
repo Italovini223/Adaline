@@ -42,10 +42,9 @@ def calcular():
         rmse_validacao = sqrt(mse_validacao)
 
         # Preenchimento do DataFrame
-        df_metricas.at[i-1, 'Rede'] = f'T{i}'
         df_metricas.at[i-1, 'Acertos'] = verdadeiroPositivo + verdadeiroNegativo
         df_metricas.at[i-1, 'Erros'] = falsoPositivo + falsoNegativo
-        df_metricas.at[i-1, 'Acurácia'] = acuracia
+        df_metricas.at[i-1, 'Acuracia'] = acuracia
         df_metricas.at[i-1, 'Sensibilidade'] = sensibilidade
         df_metricas.at[i-1, 'Especificidade'] = especificiddade
         df_metricas.at[i-1, 'Precisao'] = precisao
@@ -57,7 +56,7 @@ def calcular():
         # Plotagem da Matriz de Confusão
         fig, ax = plt.subplots(figsize=(6, 5))
         # Ajustei os labels para Classe A e B conforme o seu PDF 
-        display = ConfusionMatrixDisplay(confusion_matrix=matizDeConfusao, display_labels=['Classe A (-1)', 'Classe B (+1)'])
+        display = ConfusionMatrixDisplay(confusion_matrix=matrizDeConfusao, display_labels=['Classe A (-1)', 'Classe B (+1)'])
         display.plot(ax=ax, cmap=plt.cm.Blues, colorbar=False)
         ax.set_title(f"Rede T{i} - Matriz de Confusão (Adaline)")
         plt.tight_layout()
