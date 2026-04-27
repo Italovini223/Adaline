@@ -72,6 +72,8 @@ while treinamento <= 5:
     print(f'Treinamento {treinamento} concluído em {epocas} épocas.')
 
     resultados.preencher_w_finais(df_resultados, treinamento, pesos_finais, epocas, limiarDeAtivacao)
+    
+    classificar.preverD(pesos_finais, limiarDeAtivacao, treinamento)
     classificar.validar(pesos_finais, limiarDeAtivacao, treinamento)
     
     plt.figure(figsize=(10, 6))

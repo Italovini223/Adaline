@@ -20,8 +20,7 @@ def validar(pesos, limiarDeAtivacao, treino):
         # U = Σ(wi * xi) - θ 
         U = sum(w * xi for w, xi in zip(pesos, x)) - limiarDeAtivacao
         
-        # 2. Função de Ativação (Degrau Bipolar / Função Sinal) [cite: 405]
-        # Conforme o material da UEMG, se U >= 0, a amostra pertence a uma classe [cite: 406, 409]
+        # 2. Função de Ativação (Degrau Bipolar / Função Sinal) 
         if U >= 0:
             y = 1
         else:
@@ -32,3 +31,26 @@ def validar(pesos, limiarDeAtivacao, treino):
   
     # Salva as alterações no arquivo Excel de validação
     df_validacao.to_excel(PATH, index=False)
+
+
+def preverD(pesos, limiarDeAtivacao, amostra):
+    df_validacao = pd.read_excel(PATH)
+    for index, row in df_validacao.iterrows():
+        # Captura as entradas x1, x2, x3 e x4 conforme a planilha 
+        x = [row['x1'], row['x2'], row['x3'], row['x4']]
+        
+        # 1. Calcula a saída linear (U) 
+        # U = Σ(wi * xi) - θ 
+        U = sum(w * xi for w, xi in zip(pesos, x)) - limiarDeAtivacao
+        
+        # 2. Função de Ativação (Degrau Bipolar / Função Sinal) 
+        if U >= 0:
+            y = 1
+        else:
+            y = -1
+        
+        # Salva o resultado da classificação na planilha de validação
+        df_validacao.at[index, f'd'] = y
+        
+    df_validacao.to_excel(PATH, index=False)
+
